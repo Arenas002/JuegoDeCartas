@@ -1,0 +1,24 @@
+<body>
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="../assets/img/logo.png" alt="" width="30" height="35" class="d-inline-block align-text-top">
+            MarvelCards
+          </a>
+          <button  mat-flat-button color="primary" type="button"(click)="btnLogout()">Cerrar seccion</button>
+        </div>
+      </nav>
+<div class="container">
+<h2>Mi Primer formulario</h2>
+<form id = "frmJugadores"[formGroup]="frmJugadores" (ngSubmit)="frmJugadores.valid? submit():true">
+    <select class ="select" name = "jugadores" multiple class="jugadores" formControlName = "jugadores">
+        <option *ngFor="let user of jugadores"[value]="user.id">{{user.name}}</option>
+    </select>
+    <br>
+    <div class="error"
+     *ngIf="frmJugadores.get('jugadores')?.hasError('required')">Debes seleccionar por lo menos un juegador</div>
+    <br>
+    <a routerLink="/juego" mat-flat-button color="primary" type="submit"[disabled]="frmJugadores.invalid">Crear Juego</a>
+</form>
+</div>
+</body>

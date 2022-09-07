@@ -1,0 +1,26 @@
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="'/home'">
+        <img src="../assets/img/logo.png" alt="" width="30" height="35" class="d-inline-block align-text-top">
+        MarvelCards
+      </a>
+      <button  mat-flat-button color="primary" type="button"(click)="btnLogout()">Cerrar seccion</button>
+    </div>
+  </nav>
+<div class="container1">
+    <div class="container2">
+        <h1>Inicio</h1>
+    </div>
+    <div class="container3">
+        <h1>Indicaciones del Juego</h1>
+        <p>Para iniciar el juego debes estar registrado,incluso los jugadores</p>
+        <a routerLink="/game/new" class="btn btn-primary">Crear Juego</a>
+    </div>
+    <div class="container4">
+        <button id="boton" type="button" class="btn btn-light">Invita a tus amigos</button>
+        
+    </div>
+    <div class="contenedor-boton">
+      <a routerLink="/juego" class="btn btn-primary">Consultar Juegos Creados</a>
+    </div>
+</div>
