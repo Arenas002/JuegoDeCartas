@@ -8,6 +8,7 @@ import { Game } from '../../models/game.model';
 import { WebsocketService } from '../../services/websocket.service';
 import { v4 as uuidv4 } from 'uuid';
 import { JuegoServiceService } from '../../services/juego-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-game',
@@ -21,8 +22,9 @@ export class NewGameComponent implements OnInit,OnDestroy {
   currentUser!: firebase.User |null;
   uuid: string;
 
+
   constructor(private jugadorService:JugadorService,private authService: AuthService,
-    private websocketService:WebsocketService, private juegoService:JuegoServiceService ) {
+    private websocketService:WebsocketService, private juegoService:JuegoServiceService,private router: Router ) {
     this.frmJugadores = this.CreateFormJugadores();
     this.uuid = uuidv4()
     
@@ -76,26 +78,21 @@ ngOnDestroy(): void {
   }
 
   enviar(){
-    const otherUsers = [];
-    this.jugadores.forEach(jugador => {
-      otherUsers.push({jugadorId:jugador.id,alias:jugador.name})
-    })
-    otherUsers.push(
-      {
-        jugadorId:this.currentUser?.uid,
-        alias:this.currentUser?.displayName
-      }
-    )
+    const listJugadores = this.frmJugadores.getRawValue();
+    const jugadores: any = {};
+    listJugadores.jugadores.push([this.currentUser!.uid,this.currentUser!.displayName])
+    listJugadores.jugadores.forEach((user:(string| number)[])=>{
+      jugadores[user[0]] =user[1];
+    });
+    const juego = {
+      "juegoId": this.uuid,
+      jugadores,
+      "jugadorPrincipalId": this.currentUser?.uid
+    };
+    console.log("body",juego)
+    this.juegoService.createGame(juego).subscribe(event => console.log(event));
+    this.router.navigate(['juego']);
   
-    console.log('jugadores',otherUsers)
-    this.juegoService.createGame({
-
-        "juegoId": this.uuid,
-        "jugadores": otherUsers,
-        "jugadorPrincipalId": this.currentUser?.uid
-    }).subscribe(subcri =>
-      console.log(subcri)
-    );
   }
 
 // crearJuego(){
