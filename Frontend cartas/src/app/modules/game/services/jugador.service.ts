@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class JugadorService {
   private usersCollection: AngularFirestoreCollection<Usuario>
 
-  constructor(private storage:AngularFirestore, private http: HttpClient ) { 
+  constructor(private storage:AngularFirestore,private http:HttpClient ) { 
     this.usersCollection = storage.collection<Usuario>('usuarios');}
 
     game(gamers: Array<string>): Observable<Game> {
@@ -35,9 +35,10 @@ export class JugadorService {
         const usuarios = new Array<Usuario>();
         data.forEach((gamer)=>{
           usuarios.push(gamer.data());
-          console.log(gamer.data())
+          
         });
         resolve(usuarios)
+        console.log('holaaaaa',usuarios)
       } ,
       error: (error)=>{
         console.log(error);
@@ -63,4 +64,6 @@ export class JugadorService {
       .then(()=> console.log("Jugador registrado"));
     }
   }
+
+
 }

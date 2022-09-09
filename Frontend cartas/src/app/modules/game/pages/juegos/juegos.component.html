@@ -7,23 +7,24 @@
       <button  mat-flat-button color="primary" type="button"(click)="btnLogout()">Cerrar seccion</button>
     </div>
   </nav>
-<ul class="list-group">
-    <li class="list-group-item">
-      <span>Nombre Del Juego:Tpsdo</span><br>
-      <span>Estado del Juego: Iniciado</span><br>
-      <span>Cantidad de Jugadores: 5</span><br>
-      <a routerLink="/tablero" class="btn btn-primary">Iniciar</a>
-    </li>
-    <li class="list-group-item">
-      <span>Nombre Del Juego:Portde</span><br>
-      <span>Estado del Juego: Creado</span><br>
-      <span>Cantidad de Jugadores: 8</span><br>
-      <a routerLink="/tablero" class="btn btn-primary">Iniciar</a>
-    </li>
-    <li class="list-group-item">
-      <span>Nombre Del Juego:OceansDdad</span><br>
-      <span>Estado del Juego: Creado</span><br>
-      <span>Cantidad de Jugadores: 4</span><br>
-      <a routerLink="/tablero" class="btn btn-primary">Iniciar</a>
-    </li>
-  </ul>
+  <div class="conte-principal">
+  <div class="conrtenedor">
+    <h1>LISTA DE JUEGOS</h1>
+  </div>
+ <div class="contenedor-titulo">
+  <h3>JUEGO</h3>
+  <h3>CANTIDAD DE JUGADORES</h3>
+ </div>
+ <div class="con-juego">
+  <h5>Juego 1</h5>
+  <a routerLink="/tablero" mat-flat-button color="primary">Iniciar</a>
+ </div>
+ <div class="con-juego">
+  <h5>Juego 2</h5>
+  <a routerLink="/tablero" mat-flat-button color="primary">Iniciar</a>
+ </div>
+ <div class="con-juego">
+  <h5>Juego 3</h5>
+  <a  routerLink="/tablero" mat-flat-button color="primary">Entrar</a>
+ </div>
+</div>

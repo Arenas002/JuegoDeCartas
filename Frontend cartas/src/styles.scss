@@ -1,8 +1,10 @@
 
 
-html, body { height: 100%;
+body {
     background-image: url("./assets/img/pexels-erik-mclean-7768661.jpg"); 
-    background-size: 100%;
-    color: white !important; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+    background-size: cover;
+    background-repeat:no-repeat ;
+    color: white !important;
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+    }
 

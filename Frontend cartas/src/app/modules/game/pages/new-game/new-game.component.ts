@@ -1,24 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import { Usuario } from '../../models/usuario.model';
 import { JugadorService } from '../../services/jugador.service';
 import firebase from 'firebase/compat';
 import { Game } from '../../models/game.model';
+import { WebsocketService } from '../../services/websocket.service';
+import { v4 as uuidv4 } from 'uuid';
+import { JuegoServiceService } from '../../services/juego-service.service';
 
 @Component({
   selector: 'app-new-game',
   templateUrl: './new-game.component.html',
   styleUrls: ['./new-game.component.scss']
 })
-export class NewGameComponent implements OnInit {
+export class NewGameComponent implements OnInit,OnDestroy {
 
   frmJugadores: FormGroup;
   jugadores!: Array<Usuario>;
   currentUser!: firebase.User |null;
+  uuid: string;
 
-  constructor(private jugadorService:JugadorService,private authService: AuthService ) {
+  constructor(private jugadorService:JugadorService,private authService: AuthService,
+    private websocketService:WebsocketService, private juegoService:JuegoServiceService ) {
     this.frmJugadores = this.CreateFormJugadores();
+    this.uuid = uuidv4()
     
    }
 
@@ -26,11 +32,22 @@ export class NewGameComponent implements OnInit {
     this.jugadores =  await this.jugadorService.getJugadores();
     this.currentUser = await this.authService.getUserAuth();
     this.jugadores = this.jugadores.filter(item => item.id !== this.currentUser?.uid);
+    this.websocketService.conect(this.uuid).subscribe({
+      next:(message:any)=>console.log(message),
+      error:(error:any) =>console.log(error),
+      complete:() =>console.log("completado"),
+    });
+
   }
+
+ngOnDestroy(): void {
+    this.websocketService.close();
+}
+
 
   public submit(): void {
     const gamers = this.frmJugadores.getRawValue();
-    gamers.jugadores.push(this.currentUser?.uid);
+    console.log(gamers.jugadores.push(this.currentUser?.uid));
     console.log("Submit", gamers);
     this.jugadorService.game(gamers).subscribe({
       next: (data: Game) => {
@@ -57,5 +74,32 @@ export class NewGameComponent implements OnInit {
     this.authService.logout();
 
   }
+
+  enviar(){
+    const otherUsers = [];
+    this.jugadores.forEach(jugador => {
+      otherUsers.push({jugadorId:jugador.id,alias:jugador.name})
+    })
+    otherUsers.push(
+      {
+        jugadorId:this.currentUser?.uid,
+        alias:this.currentUser?.displayName
+      }
+    )
+  
+    console.log('jugadores',otherUsers)
+    this.juegoService.createGame({
+
+        "juegoId": this.uuid,
+        "jugadores": otherUsers,
+        "jugadorPrincipalId": this.currentUser?.uid
+    }).subscribe(subcri =>
+      console.log(subcri)
+    );
+  }
+
+// crearJuego(){
+//   this.juegoService.createGame()
+// }
 
 }

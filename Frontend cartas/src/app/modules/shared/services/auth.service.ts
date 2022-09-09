@@ -43,6 +43,10 @@ export class AuthService {
     return this.afAuth.signInWithPopup(provider)
         .then((res) => {
           this.gamer$.addGamer(res.user);
+          const user = [{
+            name: res.user?.displayName,
+            id: res.user?.uid
+          }];
             // this.gamers$.addGamer(res.user);
             this.ngZone.run(() => {
                 this.router.navigate(['home']);

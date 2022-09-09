@@ -9,6 +9,9 @@ public class CrearJuegoCommand extends Command {
     private Map<String, String> jugadores;
     private String jugadorPrincipalId;
 
+    public CrearJuegoCommand(){
+
+    }
     public void setJugadores(Map<String, String> jugadores) {
         this.jugadores = jugadores;
     }

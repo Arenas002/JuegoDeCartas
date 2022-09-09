@@ -9,7 +9,7 @@
         </div>
       </nav>
 <div class="container">
-<h2>Mi Primer formulario</h2>
+<h2>Crear Juego</h2>
 <form id = "frmJugadores"[formGroup]="frmJugadores" (ngSubmit)="frmJugadores.valid? submit():true">
     <select class ="select" name = "jugadores" multiple class="jugadores" formControlName = "jugadores">
         <option *ngFor="let user of jugadores"[value]="user.id">{{user.name}}</option>
@@ -20,5 +20,6 @@
     <br>
     <a routerLink="/juego" mat-flat-button color="primary" type="submit"[disabled]="frmJugadores.invalid">Crear Juego</a>
 </form>
+<button (click)="enviar()"> enviar </button>
 </div>
 </body>

@@ -52,7 +52,8 @@ class CrearJuegoUseCaseTest {
                     var event = (JugadorAgregado) domainEvent;
                     Assertions.assertEquals(5,event.getMazo().value().cantidad());
                     return "jjj".equals(event.getJuegoId().value())&& "juan".equals(event.getAlias());
-                }).expectComplete().verify();
+                }).expectComplete()
+                .verify();
 
 
     }

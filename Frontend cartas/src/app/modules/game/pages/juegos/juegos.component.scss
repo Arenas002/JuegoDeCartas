@@ -1,13 +1,50 @@
-.list-group{
-    position: relative;
-    margin-top: 20px;
-    width: 500px;
-    top: 22%;
-    left: 37%;
+
+.conte-principal{
+  position: relative;
+  top: 140px;
+}
+.conrtenedor{
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.767);
+  max-width: 70%;
+  margin: auto;
+  border-radius: 10px;
+  position: relative;
+  bottom:30px;
+}
+.contenedor-titulo{
+  background-color: rgba(79, 79, 79, 0.812);
+  text-align: center;
+  display: flex;
+  justify-content:space-between;
+  max-width: 70%;
+  margin: auto;
+  padding: 10px;
+  bottom: 10px;
+  position: relative;
+}
+
+.con-juego{
+  background: rgba(1, 1, 1, 0.662);
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  max-width: 70%;
+  margin: auto;
+  padding: 8px;
+  border: solid;
+  
+  
+
+
+}
+
+  .navbar{
+    background-color: rgb(17, 17, 17)!important;
   }
-  .title-list{
-    position: relative;
-    margin-top: 100px;
-    top: 50%;
-    left: 30%;
+  .navbar-brand{
+    color: white;
   }
+
+  

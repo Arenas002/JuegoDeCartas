@@ -27,7 +27,6 @@ public class CrearJuegoUseCase extends UseCaseForCommand<CrearJuegoCommand> {
         return listaDeCartaService.obtenerCartasDeMarvel().collectList()
                 .flatMapMany(cartas -> input.flatMapIterable(command -> {
 
-                    //TODO: validaciones del comando
                     var factory = new JugadorFactory();
                     command.getJugadores()
                             .forEach((id, alias) ->

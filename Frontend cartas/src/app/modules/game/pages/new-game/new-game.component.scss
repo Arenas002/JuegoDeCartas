@@ -13,12 +13,16 @@
     position:relative;
     top: 250px;
     text-align: center;
-    background: hsl(0, 0%, 98%,.8);
+    background:#000000b1;
     max-width: 70%;
-
     margin: auto;
     padding: 10px 20px;
- 
- 
 }
+
+.navbar{
+    background-color: rgb(17, 17, 17)!important;
+  }
+  .navbar-brand{
+    color: white;
+  }
 
