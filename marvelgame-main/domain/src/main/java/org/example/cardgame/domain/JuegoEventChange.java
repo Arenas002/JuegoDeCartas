@@ -58,6 +58,9 @@ public class JuegoEventChange extends EventChange {
         });
 
         apply((RondaIniciada event) -> {
+            if(Objects.isNull(juego.ronda)) {
+                throw new IllegalArgumentException("Debe existir una runda creada");
+            }
             juego.ronda = juego.ronda.iniciarRonda();
             juego.tablero.habilitarApuesta();
         });
