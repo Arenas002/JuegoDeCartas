@@ -1,30 +1,24 @@
 <nav class="navbar bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="../assets/img/logo.png" alt="" width="30" height="35" class="d-inline-block align-text-top">
-        MarvelCards
-      </a>
-      <button  mat-flat-button color="primary" type="button"(click)="btnLogout()">Cerrar seccion</button>
-    </div>
-  </nav>
-  <div class="conte-principal">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../assets/img/logo.png" alt="" width="30" height="35" class="d-inline-block align-text-top">
+      MarvelCards
+    </a>
+    <button mat-flat-button color="primary" type="button" (click)="btnLogout()">Cerrar seccion</button>
+  </div>
+</nav>
+<div class="conte-principal">
   <div class="conrtenedor">
     <h1>LISTA DE JUEGOS</h1>
   </div>
- <div class="contenedor-titulo">
-  <h3>JUEGO</h3>
-  <h3>CANTIDAD DE JUGADORES</h3>
- </div>
- <div class="con-juego">
-  <h5>Juego 1</h5>
-  <a routerLink="/tablero" mat-flat-button color="primary">Iniciar</a>
- </div>
- <div class="con-juego">
-  <h5>Juego 2</h5>
-  <a routerLink="/tablero" mat-flat-button color="primary">Iniciar</a>
- </div>
- <div class="con-juego">
-  <h5>Juego 3</h5>
-  <a  routerLink="/tablero" mat-flat-button color="primary">Entrar</a>
- </div>
+  <div class="contenedor-titulo">
+    <h3>JUEGO</h3>
+    <h3>CANTIDAD DE JUGADORES</h3>
+  </div>
+  <div *ngFor="let juego of dataSource" >
+    <div class="con-juego">
+      <h5>>Id Del Juego:  {{juego.id}}</h5>
+      <h3>{{juego.cantidadJugadores}}</h3>
+      <a routerLink="/tablero" mat-flat-button color="primary">Iniciar</a>
+  </div>
 </div>

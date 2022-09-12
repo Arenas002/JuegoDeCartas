@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
+import { JuegoModel } from '../../models/juegos.model';
+import { JuegoServiceService } from '../../services/juego-service.service';
+import firebase from 'firebase/compat';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-juegos',
   templateUrl: './juegos.component.html',
@@ -7,9 +11,18 @@ import { AuthService } from 'src/app/modules/shared/services/auth.service';
 })
 export class JuegosComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  dataSource: JuegoModel[] = [];
+  currentUser!: firebase.User |null;
 
-  ngOnInit(): void {
+  constructor(private router:Router,private authService: AuthService,private juegoservice:JuegoServiceService) { }
+ 
+
+  async ngOnInit() {
+    this.currentUser = await this.authService.getUserAuth();
+    
+    this.juegoservice.listarJuegos(this.currentUser!.uid).subscribe(juego => this.dataSource=juego)
+    
+    
   }
 
   btnLogout():void{

@@ -1,27 +1,39 @@
 ::-webkit-scrollbar {
   display: none;
+
 }
 
 
 .descripcion{
-    background-color: rgba(110, 180, 245, 0.7);
+    background-color: rgba(6, 25, 43, 0.7);
     border-radius: 30px;
-    text-align: center;
-    max-width: 50%;
+    text-align:left;
+    max-width: 65%;
     padding: 30px 30px;
-    position: relative;
-    top: 30px;
+    margin: 40px;
+    
+
+
     // overflow: hidden;
+  }
+
+  .tiempo{
+  max-width: 30%;
+   display: flex;
+   justify-content: space-between;
+   position: relative;
+   left: 20%;
+   padding: 10px;
+   bottom: 80px;
+
   }
 
   .partidad{
     background-color: rgba(110, 180, 245, 0.7);
     border-radius: 30px;
     text-align: center;
-    max-width: 70%;
-    position: relative;
-    top: 100px;
-    
+    max-width: 65%;
+    max-height: 50px;
     
   }
   .mazo{
@@ -32,16 +44,25 @@
     grid-template-columns: repeat(2,1fr);
     text-align: center;
     max-width: 25%;
-    left: 1400px;
+    left: 1700px;
     padding: 30px 30px;
     position: relative;
-    bottom:500px;
+    bottom:800px;
    
   }
 
   .tarjetas{
     display: flex;
     gap:1em ;
+    background-color: #e31010;
+    position: relative;
+    height: 100%;
+   max-width: 65%;
+    padding: 200px;
+    border-radius: 30px;
+    text-align: center;
+    margin:40px ;
+    
   }
 
  /* From uiverse.io by @Tiagoadag */
@@ -51,6 +72,7 @@
     background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
     border-radius: 20px;
     transition: all .3s;
+    
    
    }
    
@@ -75,6 +97,7 @@
    #card1{
     background-image: url('/assets/img/8A9.jpg');
     background-size:cover ;
+
    }
    #card2{
     background-image: url('/assets/img/226.jpg');

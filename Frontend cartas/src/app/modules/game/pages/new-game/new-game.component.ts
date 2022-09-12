@@ -9,6 +9,7 @@ import { WebsocketService } from '../../services/websocket.service';
 import { v4 as uuidv4 } from 'uuid';
 import { JuegoServiceService } from '../../services/juego-service.service';
 import { Router } from '@angular/router';
+import { reload } from 'firebase/auth';
 
 @Component({
   selector: 'app-new-game',
@@ -21,6 +22,8 @@ export class NewGameComponent implements OnInit,OnDestroy {
   jugadores!: Array<Usuario>;
   currentUser!: firebase.User |null;
   uuid: string;
+
+
 
 
   constructor(private jugadorService:JugadorService,private authService: AuthService,
@@ -38,6 +41,7 @@ export class NewGameComponent implements OnInit,OnDestroy {
       next:(message:any)=>console.log(message),
       error:(error:any) =>console.log(error),
       complete:() =>console.log("completado"),
+      
     });
 
   }
@@ -77,7 +81,7 @@ ngOnDestroy(): void {
 
   }
 
-  enviar(){
+ enviar(){
     const listJugadores = this.frmJugadores.getRawValue();
     const jugadores: any = {};
     listJugadores.jugadores.push([this.currentUser!.uid,this.currentUser!.displayName])
@@ -89,14 +93,13 @@ ngOnDestroy(): void {
       jugadores,
       "jugadorPrincipalId": this.currentUser?.uid
     };
-    console.log("body",juego)
-    this.juegoService.createGame(juego).subscribe(event => console.log(event));
-    this.router.navigate(['juego']);
-  
+    // console.log("body",juego)
+   
+     this.juegoService.createGame(juego).subscribe({
+      next:(message:any)=>console.log(message),
+      error:(error:any) =>console.log(error),
+      complete:() =>setTimeout(()=>this.router.navigate(['juego']),1),
+     });
+
   }
-
-// crearJuego(){
-//   this.juegoService.createGame()
-// }
-
 }
