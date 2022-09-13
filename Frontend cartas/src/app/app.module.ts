@@ -14,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { environment } from 'src/environments/environment';
 import { GameModuleModule } from './modules/game.module';
-import { LoginModule } from './login/login.module';
 
 
 
@@ -32,8 +31,8 @@ import { LoginModule } from './login/login.module';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     HttpClientModule,
-    GameModuleModule,
-   
+    GameModuleModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

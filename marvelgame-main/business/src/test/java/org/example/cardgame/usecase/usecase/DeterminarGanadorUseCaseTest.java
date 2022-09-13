@@ -56,12 +56,12 @@ class DeterminarGanadorUseCaseTest {
                 JugadorId.of("aaa"),
                 "Raul",
                 new Mazo(Set.of(
-                        new Carta(CartaMaestraId.of("111"), 5, true, true),
-                        new Carta(CartaMaestraId.of("222"), 6, true, true),
-                        new Carta(CartaMaestraId.of("333"), 7, true, true),
-                        new Carta(CartaMaestraId.of("444"), 8, true, true),
-                        new Carta(CartaMaestraId.of("555"), 9, true, true),
-                        new Carta(CartaMaestraId.of("666"), 11, true, true)
+                        new Carta(CartaMaestraId.of("111"), 5, true, true, "www"),
+                        new Carta(CartaMaestraId.of("222"), 6, true, true, "www"),
+                        new Carta(CartaMaestraId.of("333"), 7, true, true, "www"),
+                        new Carta(CartaMaestraId.of("444"), 8, true, true, "www"),
+                        new Carta(CartaMaestraId.of("555"), 9, true, true, "www"),
+                        new Carta(CartaMaestraId.of("666"), 11, true, true, "www")
                     )
                 )
         );

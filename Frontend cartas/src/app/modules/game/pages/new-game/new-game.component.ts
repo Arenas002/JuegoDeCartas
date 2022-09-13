@@ -98,7 +98,7 @@ ngOnDestroy(): void {
      this.juegoService.createGame(juego).subscribe({
       next:(message:any)=>console.log(message),
       error:(error:any) =>console.log(error),
-      complete:() =>setTimeout(()=>this.router.navigate(['juego']),1),
+      complete:() =>setTimeout(()=>this.router.navigate(['juego']),100),
      });
 
   }

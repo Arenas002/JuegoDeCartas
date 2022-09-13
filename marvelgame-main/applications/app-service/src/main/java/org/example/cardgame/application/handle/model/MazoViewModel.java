@@ -7,6 +7,7 @@ public class MazoViewModel {
     private Integer cantidad;
     private Set<Carta> cartas;
 
+
     public void setCartas(Set<Carta> cartas) {
         this.cartas = cartas;
     }
@@ -29,6 +30,18 @@ public class MazoViewModel {
         private  Boolean estaOculta;
         private  Boolean estaHabilitada;
         private  Integer poder;
+
+        private String url;
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+
 
         public String getCartaId() {
             return cartaId;
