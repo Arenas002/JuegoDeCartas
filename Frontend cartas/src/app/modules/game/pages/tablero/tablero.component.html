@@ -9,11 +9,11 @@
     </div>
   </nav>
 <div class="descripcion">
-    <h1>Numero de Ronda: {{numeroRonda}}</h1>
+    <h1>Ronda #: {{numeroRonda}}</h1>
     <h1>Jugadores: {{jugadoresRonda}}</h1>
     <div class="tiempo">
         <h1>Cuenta Regresiva {{tiempo}}</h1>
-        <button (click)="iniciarRonda()">Iniciar</button>
+        <button type="button" (click)="iniciarRonda()" [disabled]="!btnIniciarHabilitado">Iniciar</button>
     </div>
 </div>
     <div class="tarjetas"  >
@@ -27,8 +27,7 @@
     </div>
 
 <div class="mazo" >
-        <div class="card" *ngFor="let card of cartasJugador">
-  
+        <div class="card" *ngFor="let card of cartasDelJugador">
             <div class="card2" id="card1">
               <span>PX: {{card.poder}}</span>
                 <br>
@@ -37,8 +36,7 @@
                 
             </div>
           </div>
-         
-          
+        
 </div>
 
 </body>

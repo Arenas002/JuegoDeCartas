@@ -25,7 +25,7 @@ export class JuegosComponent implements OnInit {
   async ngOnInit() {
     this.currentUser = await this.authService.getUserAuth();
     
-    this.juegoservice.listarJuegos(this.currentUser!.uid).subscribe(juego => this.dataSource=juego)
+    this.juegoservice.getJuegos().subscribe(juego => this.dataSource=juego)
   
     
   }

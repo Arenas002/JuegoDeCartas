@@ -36,6 +36,10 @@ export class JuegoServiceService {
     listarJuegos(idJugadorPrincipal: string | null): Observable<JuegoModel[]> {
       return this.http.get<JuegoModel[]>(`${environment.urlBase}/juego/listar/${idJugadorPrincipal}`);
     }
+
+    getJuegos(): Observable<JuegoModel[]> {
+      return this.http.get<JuegoModel[]>(environment.urlBase + '/juegos/');
+    }
   
     obtenerMazoPorJugadorYJuego(uid: string, juegoId: string) {
       return this.http.get(`${environment.urlBase}/juego/mazo/${uid}/${juegoId}`);

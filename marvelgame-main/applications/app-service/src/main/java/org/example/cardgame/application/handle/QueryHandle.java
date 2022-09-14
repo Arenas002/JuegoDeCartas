@@ -43,6 +43,17 @@ public class QueryHandle {
         );
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> getGames(){
+        return RouterFunctions.route(
+                GET("/juegos/"),
+                serverRequest -> template.findAll(JuegoListViewModel.class,"gameview")
+                        .collectList()
+                        .flatMap(games->ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(BodyInserters.fromPublisher(Flux.fromIterable(games),JuegoListViewModel.class))));
+
+    }
 
     @Bean
     public RouterFunction<ServerResponse> getTablero() {
