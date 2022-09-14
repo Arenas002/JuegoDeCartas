@@ -84,6 +84,12 @@
     transition: all .2s;
     
    }
+   .card2 img{
+    width: 150px;
+    height: 214px;
+    background-size:cover ;
+    background-repeat: no-repeat;
+   }
    
    .card2:hover {
     transform: scale(0.98);
@@ -95,15 +101,7 @@
    }
 
    #card1{
-    background-image: url('/assets/img/8A9.jpg');
+  
     background-size:cover ;
-
    }
-   #card2{
-    background-image: url('/assets/img/226.jpg');
-    background-size:cover ;
-  }
-  #card3{
-    background-image: url('/assets/img/970.jpg');
-    background-size:cover ;
-  }
+  

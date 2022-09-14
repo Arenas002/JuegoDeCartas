@@ -25,6 +25,11 @@ export class AuthService {
     });
   }
 
+  obtenerUsuarioSesion(){
+    return JSON.parse(localStorage.getItem('user')!);
+  
+  }
+
   async getUserAuth(){
     const userData = await this.afAuth.currentUser;
     return userData;
@@ -42,6 +47,8 @@ export class AuthService {
   private OAuthProvider(provider: AuthProvider) {
     return this.afAuth.signInWithPopup(provider)
         .then((res) => {
+          localStorage.setItem('user', JSON.stringify(res.user));
+          JSON.parse(localStorage.getItem('user')!);
           this.gamer$.addGamer(res.user);
           const user = [{
             name: res.user?.displayName,

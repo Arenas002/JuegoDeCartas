@@ -58,14 +58,6 @@ class IniciarJuegoUseCaseTest {
         var event = new JuegoCreado(JugadorId.of("Jugador01"));
         event.setAggregateRootId("juegoId01");
 
-//        var event3=new TableroCreado(TableroId.of("xxxxx"),Set.of(JugadorId.of("AAAA"),
-//                JugadorId.of("BBBB")));
-//
-//        var event2 =new RondaCreada(new Ronda(1,
-//                Set.of(JugadorId.of("AAAA"),
-//                        JugadorId.of("BBBB")
-//                )
-//        ), 60);;
         return Flux.just(event);
     }
 

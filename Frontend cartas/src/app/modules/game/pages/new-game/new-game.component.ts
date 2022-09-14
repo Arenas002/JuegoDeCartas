@@ -9,7 +9,7 @@ import { WebsocketService } from '../../services/websocket.service';
 import { v4 as uuidv4 } from 'uuid';
 import { JuegoServiceService } from '../../services/juego-service.service';
 import { Router } from '@angular/router';
-import { reload } from 'firebase/auth';
+
 
 @Component({
   selector: 'app-new-game',
@@ -35,7 +35,8 @@ export class NewGameComponent implements OnInit,OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.jugadores =  await this.jugadorService.getJugadores();
-    this.currentUser = await this.authService.getUserAuth();
+    // this.currentUser = await this.authService.getUserAuth();
+    this.currentUser =this.authService.obtenerUsuarioSesion();
     this.jugadores = this.jugadores.filter(item => item.id !== this.currentUser?.uid);
     this.websocketService.conect(this.uuid).subscribe({
       next:(message:any)=>console.log(message),

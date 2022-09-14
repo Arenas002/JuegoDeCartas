@@ -9,75 +9,36 @@
     </div>
   </nav>
 <div class="descripcion">
-    <h1>Ronda #10</h1>
-    <h1>Jugadores</h1>
+    <h1>Numero de Ronda: {{numeroRonda}}</h1>
+    <h1>Jugadores: {{jugadoresRonda}}</h1>
     <div class="tiempo">
-        <h1>Tiempo: 50s</h1>
-        <button>Iniciar</button>
+        <h1>Cuenta Regresiva {{tiempo}}</h1>
+        <button (click)="iniciarRonda()">Iniciar</button>
     </div>
 </div>
-
-    <div class="tarjetas">
-            <div class="card">
-                <div class="card2">
-                    <span>PX:10</span>
-                    <br>
-                </div>
+    <div class="tarjetas"  >
+            <div class="card" *ngFor="let card of cartasDelTablero" >
+              <div class="card2" id="card1">
+                <span>PX: {{card.poder}}</span>
+                <img  src="{{card.url}}" />
+                  
               </div>
-              <div class="card">
-                <div class="card2">
-                    <span>PX:10</span>
-                    <br>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card2">
-                    <span>PX:10</span>
-                    <br>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card2">
-                    <span>PX:10</span>
-                    <br>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card2">
-                    <span>PX:10</span>
-                    <br>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card2">
-                    <span>PX:10</span>
-                    <br>
-                </div>
-               </div>
+            </div>
     </div>
 
-<div class="mazo">
-        <div class="card">
+<div class="mazo" >
+        <div class="card" *ngFor="let card of cartasJugador">
+  
             <div class="card2" id="card1">
-                <span>PX:10</span>
+              <span>PX: {{card.poder}}</span>
                 <br>
-                <button>Poner</button>
+                <button (click)="poner(card.cartaId)">Poner</button>
+              <img  src="{{card.url}}" />
+                
             </div>
           </div>
-          <div class="card">
-            <div class="card2" id="card2">
-                <span>PX:10</span>
-                <br>
-                <button>Poner</button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card2" id="card3">
-                <span>PX:10</span>
-                <br>
-                <button>Poner</button>
-            </div>
-          </div>
+         
+          
 </div>
 
 </body>

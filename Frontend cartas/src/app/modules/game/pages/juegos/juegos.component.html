@@ -19,6 +19,11 @@
     <div class="con-juego">
       <h5>>Id Del Juego:  {{juego.id}}</h5>
       <h3>{{juego.cantidadJugadores}}</h3>
-      <a routerLink="/tablero" mat-flat-button color="primary">Iniciar</a>
+      <ng-container *ngIf="!juego.iniciado">
+      <button (click)="iniciar(juego.id)" mat-flat-button color="primary">Iniciar</button>
+    </ng-container>
+    <ng-container *ngIf="juego.iniciado">
+      <button (click)="entrar(juego.id)" mat-flat-button color="primary">Entrar</button>
+    </ng-container>
   </div>
 </div>
