@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchAll } from 'rxjs';
+import { subscribeOn, switchAll } from 'rxjs';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import Swal from 'sweetalert2';
 import { Carta } from '../../models/tablero.model';
@@ -82,8 +82,12 @@ export class TableroComponent implements OnInit,OnDestroy {
             break;
           case 'cardgame.juegofinalizado':
             this.ganadorAlias=event.alias;
+            Swal.fire("ganador del juego",event.alias)
             alert("Ganador del Juego: "+this.ganadorAlias)
-            this.router.navigate(['/home']);
+            setTimeout(() => { 
+              this.router.navigate(['/home']);
+            },300);
+            
             break
           case 'cardgame.rondaterminada':
             this.rondaIniciada = false;

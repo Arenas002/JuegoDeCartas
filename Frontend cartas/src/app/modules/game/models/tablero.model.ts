@@ -8,6 +8,7 @@ export interface TableroModel {
 export interface Tablero {
      id:string,
      habilitado: boolean,
+     finalizado: boolean,
      jugadores: [],
      cartas: Map<string, Carta[]>,
 }
