@@ -16,6 +16,7 @@
         <button type="button" (click)="iniciarRonda()" [disabled]="!btnIniciarHabilitado">Iniciar</button>
     </div>
 </div>
+
     <div class="tarjetas"  >
             <div class="card" *ngFor="let card of cartasDelTablero" >
               <div class="card2" id="card1">
@@ -27,17 +28,23 @@
     </div>
 
 <div class="mazo" >
+        
         <div class="card" *ngFor="let card of cartasDelJugador">
+          <ng-container *ngIf="!card.estaHabilitada">
+            <h2>Inabilitada</h2>
+          </ng-container>
             <div class="card2" id="card1" *ngIf="card.estaHabilitada">
-              <span>PX: {{card.poder}}</span>
-                <br>
-                <button (click)="poner(card.cartaId)">Poner</button>
               <img  src="{{card.url}}" />
-                
+              <br>
+              <span>PX: {{card.poder}}</span>
+              <br>
+              <button (click)="poner(card.cartaId)">Poner</button>
             </div>
+          
           </div>
         
-</div>
+  </div>
+
 
 </body>
 

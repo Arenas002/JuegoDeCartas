@@ -12,6 +12,8 @@ public class CrearRondaCommand extends Command {
     private Integer tiempo;
     private Set<String> jugadores;
 
+    private String idjugadorElegido;
+
 
     /**
      * Gets jugadores.
@@ -56,6 +58,14 @@ public class CrearRondaCommand extends Command {
      */
     public Integer getTiempo() {
         return tiempo;
+    }
+
+    public String getIdjugadorElegido() {
+        return idjugadorElegido;
+    }
+
+    public void setIdjugadorElegido(String idjugadorElegido) {
+        this.idjugadorElegido = idjugadorElegido;
     }
 
     /**

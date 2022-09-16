@@ -11,6 +11,8 @@ public class JuegoListViewModel {
     private Map<String, Jugador> jugadores;
     private Jugador ganador;
 
+    private  String idJugadorElegido;
+
     public void setGanador(Jugador ganador) {
         this.ganador = ganador;
     }
@@ -45,6 +47,14 @@ public class JuegoListViewModel {
 
     public String getId() {
         return id;
+    }
+
+    public String getIdJugadorElegido() {
+        return idJugadorElegido;
+    }
+
+    public void setIdJugadorElegido(String idJugadorElegido) {
+        this.idJugadorElegido = idJugadorElegido;
     }
 
     public void setId(String id) {

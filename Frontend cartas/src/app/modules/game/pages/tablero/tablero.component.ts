@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debugErrorMap } from 'firebase/auth';
-import { subscribeOn, switchAll } from 'rxjs';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import Swal from 'sweetalert2';
 import { Carta } from '../../models/tablero.model';
@@ -54,6 +52,8 @@ export class TableroComponent implements OnInit, OnDestroy {
     this.webSocket.conect(this.gameId).subscribe({
 
       next: (event: any) => {
+        console.log(event)
+       
         
         switch (event.type) {
           case 'cardgame.tiempocambiadodeltablero':

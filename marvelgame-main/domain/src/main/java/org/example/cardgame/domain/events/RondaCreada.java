@@ -10,16 +10,20 @@ public class RondaCreada extends DomainEvent {
     private final Ronda ronda;
     private final Integer tiempo;
 
+    private final String idJugadorElegido;
+
     /**
      * Instantiates a new Ronda creada.
      *
-     * @param ronda  the ronda
-     * @param tiempo the tiempo
+     * @param ronda            the ronda
+     * @param tiempo           the tiempo
+     * @param idJugadorElegido
      */
-    public RondaCreada(Ronda ronda, Integer tiempo) {
+    public RondaCreada(Ronda ronda, Integer tiempo, String idJugadorElegido) {
         super("cardgame.rondacreada");
         this.ronda = ronda;
         this.tiempo = tiempo;
+        this.idJugadorElegido = idJugadorElegido;
     }
 
     /**
@@ -29,6 +33,11 @@ public class RondaCreada extends DomainEvent {
      */
     public Ronda getRonda() {
         return ronda;
+    }
+
+
+    public String getIdJugadorElegido() {
+        return idJugadorElegido;
     }
 
     /**

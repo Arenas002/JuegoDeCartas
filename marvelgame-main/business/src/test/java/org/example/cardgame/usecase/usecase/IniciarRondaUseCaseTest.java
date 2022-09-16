@@ -72,7 +72,7 @@ class IniciarRondaUseCaseTest {
                                 JugadorId.of("GGGG"),
                                 JugadorId.of("HHHH")
                         )
-                ),80);
+                ),80, "rrrrr");
         event3.setAggregateRootId("XXXX");
 
         return Flux.just(event, event2, event3);

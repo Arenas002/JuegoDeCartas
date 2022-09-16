@@ -5,6 +5,7 @@ import co.com.sofka.domain.generic.Identity;
 import org.example.cardgame.application.handle.IntegrationHandle;
 import org.example.cardgame.domain.command.CrearRondaCommand;
 import org.example.cardgame.domain.events.RondaTerminada;
+import org.example.cardgame.domain.values.JugadorId;
 import org.example.cardgame.usecase.usecase.CrearRondaUseCase;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
@@ -12,6 +13,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -32,15 +38,23 @@ public class CrearRondaEventHandle {
     @EventListener
     public void handleCrearRonda(RondaTerminada event) {
         var command = new CrearRondaCommand();
+
         var jugadores = event.getJugadorIds()
                 .stream()
                 .map(Identity::value)
                 .collect(Collectors.toSet());
+        var idJugadorElegido=elegirAleatorio(jugadores);
         command.setJuegoId(event.aggregateRootId());
         command.setTiempo(15);
         command.setJugadores(jugadores);
+        command.setIdjugadorElegido(idJugadorElegido);
         handle.apply(usecase.apply(Mono.just(command))).block();
     }
 
 
+    private String elegirAleatorio(Set<String> jugadores){
+        Collections.shuffle(Arrays.asList(jugadores));
+        return jugadores.stream().findFirst().toString();
+
+    }
 }

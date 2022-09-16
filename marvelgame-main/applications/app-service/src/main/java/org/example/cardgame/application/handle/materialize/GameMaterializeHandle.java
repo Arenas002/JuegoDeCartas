@@ -102,6 +102,7 @@ public class GameMaterializeHandle {
         data.set("fecha", Instant.now());
         data.set("tiempo", event.getTiempo());
         data.set("ronda", document);
+        data.set("jugadorRandon",event.getIdJugadorElegido());
         template.updateFirst(getFilterByAggregateId(event),data, COLLECTION_VIEW).block();
     }
 

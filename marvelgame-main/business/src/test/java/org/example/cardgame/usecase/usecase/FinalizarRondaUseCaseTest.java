@@ -99,7 +99,7 @@ class FinalizarRondaUseCaseTest {
                         Set.of(JugadorId.of("AAAA"),
                                 JugadorId.of("BBBB")
                         )
-                ), 80);
+                ), 80, "hhhhjh");
         event5.setAggregateRootId("XXXX");
 
         var event6 = new RondaIniciada();

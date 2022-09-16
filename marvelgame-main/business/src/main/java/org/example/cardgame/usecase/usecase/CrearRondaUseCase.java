@@ -10,7 +10,12 @@ import org.example.cardgame.usecase.gateway.JuegoDomainEventRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CrearRondaUseCase extends UseCaseForCommand<CrearRondaCommand> {
@@ -31,16 +36,22 @@ public class CrearRondaUseCase extends UseCaseForCommand<CrearRondaCommand> {
                     var jugadores = command.getJugadores().stream()
                             .map(JugadorId::of)
                             .collect(Collectors.toSet());
-
+                    var idJugadorElegido=elegirAleatorio(jugadores);
                     Optional.ofNullable(juego.ronda())
                             .ifPresentOrElse(
                                     ronda -> juego.crearRonda(
-                                            ronda.incrementarRonda(jugadores), command.getTiempo()
+                                            ronda.incrementarRonda(jugadores), command.getTiempo(),idJugadorElegido
                                     ), () -> juego.crearRonda(
-                                            new Ronda(1, jugadores), command.getTiempo())
+                                            new Ronda(1, jugadores), command.getTiempo(),idJugadorElegido)
                             );
                     return juego.getUncommittedChanges();
                 }));
+    }
+
+
+    private String elegirAleatorio(Set<JugadorId> jugadores){
+        Collections.shuffle( Arrays.asList(jugadores));
+        return jugadores.stream().findFirst().toString();
     }
 }
 

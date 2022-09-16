@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @EnableAsync
 @Configuration
-public class CuentaRegresivaEventHandle {
+public class CuentaRegresivaEventHandle  {
 
     private final IniciarCuentaRegresivaUseCase usecase;
 
@@ -28,7 +28,7 @@ public class CuentaRegresivaEventHandle {
     @EventListener
     public void handleIniciarCuentaRegresiva(RondaIniciada event) {
         try {
-            handle.apply(usecase.apply(Mono.just(event))).block();
+            handle.apply(usecase.apply(Mono.just(event))).subscribe();
 //        usecase.andThen(handle).apply(Mono.just(event)).block();
         }catch (Exception e) {
            System.out.println("cuenta regresiva "+ e);
