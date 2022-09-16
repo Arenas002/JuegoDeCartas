@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debugErrorMap } from 'firebase/auth';
 import { subscribeOn, switchAll } from 'rxjs';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
 import Swal from 'sweetalert2';
@@ -13,7 +14,7 @@ import { WebsocketService } from '../../services/websocket.service';
   templateUrl: './tablero.component.html',
   styleUrls: ['./tablero.component.scss']
 })
-export class TableroComponent implements OnInit,OnDestroy {
+export class TableroComponent implements OnInit, OnDestroy {
 
   cartasDelJugador: Carta[] = [];
   numeroRonda: number = 0;
@@ -25,9 +26,13 @@ export class TableroComponent implements OnInit,OnDestroy {
   uid!: string;
   cartasDelTablero: Carta[] = [];
   cartasDeJugadorEnTablero: string[] = [];
-  ganadorAlias:string ="";
-  ganador:Boolean = false;
-  btnIniciarHabilitado:Boolean = true
+  ganadorAlias: string = "";
+  ganador: Boolean = false;
+  btnIniciarHabilitado: Boolean = true
+  cartaGanadora: Carta[] = [];
+  jugador!: string;
+  cartasHabilitadas!: [];
+
 
 
 
@@ -49,7 +54,7 @@ export class TableroComponent implements OnInit,OnDestroy {
     this.webSocket.conect(this.gameId).subscribe({
 
       next: (event: any) => {
-
+        
         switch (event.type) {
           case 'cardgame.tiempocambiadodeltablero':
             this.tiempo = event.tiempo;
@@ -57,19 +62,26 @@ export class TableroComponent implements OnInit,OnDestroy {
           case 'cardgame.rondainiciada':
             this.rondaIniciada = true;
             this.tiempo = event.tiempo;
-            this.numeroRonda=event.ronda.numero;
-            this.cartasDelJugador=this.cartasDelJugador;
+            this.cartasDelJugador.forEach((carta) => {
+              if((carta?.ronda !== undefined && carta.ronda !== 0 && Number(carta.ronda) + 2 < this.numeroRonda))
+                carta.estaHabilitada = true
+            });
+            this.cartasDelJugador = this.cartasDelJugador;
             this.btnIniciarHabilitado = true;
             break;
 
           case 'cardgame.ponercartaentablero':
+            this.jugador = event.jugadorId.uuid
             this.cartasDelTablero.push({
               cartaId: event.carta.cartaId,
               poder: event.carta.poder,
               estaOculta: event.carta.estaOculta,
-              estaHabilitada: event.carta,
-              url: event.carta.url
+              estaHabilitada: event.carta.estaHabilitada,
+              url: event.carta.url,
+              jugador: this.jugador
             });
+            console.log("cartas en el tablero", this.cartasDelTablero)
+
             break;
           case 'cardgame.cartaquitadadelmazo':
             this.cartasDelJugador = this.cartasDelJugador
@@ -81,36 +93,51 @@ export class TableroComponent implements OnInit,OnDestroy {
             this.numeroRonda = event.ronda.numero
             break;
           case 'cardgame.juegofinalizado':
-            this.ganadorAlias=event.alias;
-            Swal.fire("ganador del juego",event.alias)
-            alert("Ganador del Juego: "+this.ganadorAlias)
-            setTimeout(() => { 
+            this.ganadorAlias = event.alias;
+            Swal.fire("ganador del juego", event.alias)
+            alert("Ganador del Juego: " + this.ganadorAlias)
+            setTimeout(() => {
               this.router.navigate(['/home']);
-            },300);
-            
+            }, 300);
+
             break
           case 'cardgame.rondaterminada':
             this.rondaIniciada = false;
             this.cartasDelTablero = [];
-              break  
+            break
           case 'cardgame.cartasasignadasajugador':
+
+            console.log("ronda pura",this.numeroRonda);
+            console.log("mazo jugador # 3", this.cartasDelJugador)
             if (event.ganadorId.uuid === this.uid) {
-              console.log("id del ganador",event.ganadorId.uuid)
-              event.cartasApuesta.forEach((carta: any) => {
+              this.cartasDelTablero.forEach((carta: any) => {
                 this.cartasDelJugador.push({
                   cartaId: carta.cartaId.uuid,
                   poder: carta.poder,
                   estaOculta: carta.estaOculta,
-                  estaHabilitada: carta.estaHabilitada,
-                  url: carta.url
+                  estaHabilitada: event.ganadorId.uuid === carta.jugador ? true:false,
+                  url: carta.url,
+                  ronda: event.ganadorId.uuid === carta.jugador?0:this.numeroRonda
                 });
+
+
+                // if(carta.poder > this.cartaGanadora[0].poder){
+                //   this.cartaGanadora[0]=carta;
+                //   console.log("carta ganadora",this.cartaGanadora)
+                // }
+
               });
+              console.log("mazo jugador", this.cartasDelJugador)
+
               // alert("Ganaste la ronda!")
-            } 
-            // else {
-            //   // alert("Perdiste la ronda :(")
-            // }
-                   
+
+            }
+
+
+          // else {
+          //   // alert("Perdiste la ronda :(")
+          // }
+
         }
 
       }
@@ -122,6 +149,8 @@ export class TableroComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
     this.webSocket.close();
   }
+
+
   getBoard() {
     this.api.obtenerTableroPorJuego(this.gameId).subscribe(element => {
       this.tiempo = element.tiempo;
@@ -133,14 +162,15 @@ export class TableroComponent implements OnInit,OnDestroy {
   }
 
   getMazo() {
+    console.log("hola mazo")
     this.api.obtenerMazoPorJugadorYJuego(this.uid, this.gameId).subscribe((element: any) => {
       this.cartasDelJugador = element.cartas
-      console.log(this.cartasDelJugador)
+
     })
   };
 
-  limpiarTablero(){
-    this.cartasDelTablero.length-=this.cartasDelTablero.length;
+  limpiarTablero() {
+    this.cartasDelTablero.length -= this.cartasDelTablero.length;
   }
 
 
@@ -149,7 +179,7 @@ export class TableroComponent implements OnInit,OnDestroy {
   }
 
   iniciarRonda() {
-    this.webSocket.conect(this.gameId).subscribe(data => console.log(data));
+    this.webSocket.conect(this.gameId).subscribe();
     this.api.iniciarRonda({
       juegoId: this.gameId,
     }).subscribe();

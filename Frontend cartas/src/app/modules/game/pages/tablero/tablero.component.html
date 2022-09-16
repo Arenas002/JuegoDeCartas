@@ -28,7 +28,7 @@
 
 <div class="mazo" >
         <div class="card" *ngFor="let card of cartasDelJugador">
-            <div class="card2" id="card1">
+            <div class="card2" id="card1" *ngIf="card.estaHabilitada">
               <span>PX: {{card.poder}}</span>
                 <br>
                 <button (click)="poner(card.cartaId)">Poner</button>

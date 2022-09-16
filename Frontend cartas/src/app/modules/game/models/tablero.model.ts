@@ -22,5 +22,7 @@ export interface Carta {
     estaOculta:boolean,
     poder:number,
     estaHabilitada:boolean,
-    url:string
+    url:string,
+    ronda?:number,
+    jugador?:string
 }

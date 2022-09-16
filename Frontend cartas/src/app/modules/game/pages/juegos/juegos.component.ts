@@ -44,7 +44,7 @@ export class JuegosComponent implements OnInit {
      
       next: (event:any) => {
      
-        console.log("evento tipo",event.type)
+      
         if(event.type === 'cardgame.tablerocreado'){         
           this.api.crearRonda({
               juegoId: gameId,
