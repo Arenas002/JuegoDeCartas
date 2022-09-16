@@ -3,6 +3,7 @@ package org.example.cardgame.usecase.usecase;
 import co.com.sofka.domain.generic.DomainEvent;
 import org.example.cardgame.domain.command.IniciarJuegoCommand;
 import org.example.cardgame.domain.events.JuegoCreado;
+import org.example.cardgame.domain.events.JugadorAgregado;
 import org.example.cardgame.domain.events.RondaCreada;
 import org.example.cardgame.domain.events.TableroCreado;
 import org.example.cardgame.domain.values.JugadorId;
@@ -23,42 +24,38 @@ import java.util.Set;
 import static org.mockito.Mockito.when;
 
 
-//TODO: hacer prueba
 @ExtendWith(MockitoExtension.class)
 class IniciarJuegoUseCaseTest {
 
     @Mock
     private JuegoDomainEventRepository repository;
+
     @InjectMocks
     private IniciarJuegoUseCase useCase;
 
     @Test
-    void iniciarJuego() {
-
-        //ARRANGE
+    void iniciarJuego(){
         var command = new IniciarJuegoCommand();
-        command.setJuegoId("juegoId01");
+        command.setJuegoId("XXXX");
 
-        //ASSERT & ACT
-        when(repository.obtenerEventosPor("juegoId01"))
-                .thenReturn(juegoCreado());
+        when(repository.obtenerEventosPor("XXXX")).thenReturn(crearJuego());
 
-
-        StepVerifier
-                .create(useCase.apply(Mono.just(command)))
+        StepVerifier.create(useCase.apply(Mono.just(command)))
                 .expectNextMatches(domainEvent -> {
                     var event = (TableroCreado) domainEvent;
-                    return event.aggregateRootId().equals("juegoId01");
+                    return event.aggregateRootId().equals("XXXX");
+                }).expectNextMatches(domainEvent -> {
+                    var event2 = (RondaCreada) domainEvent;
+                    return event2.aggregateRootId().equals("XXXX");
                 })
                 .expectComplete()
                 .verify();
     }
 
-    private Flux<DomainEvent> juegoCreado() {
-        var event = new JuegoCreado(JugadorId.of("Jugador01"));
-        event.setAggregateRootId("juegoId01");
+    private Flux<DomainEvent> crearJuego() {
+        var event = new JuegoCreado(JugadorId.of("777"));
+        event.setAggregateRootId("XXXX");
 
         return Flux.just(event);
     }
-
 }
